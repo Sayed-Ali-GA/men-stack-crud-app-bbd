@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3001;
 const path = require('path');
+const methodOverride = require('method-override')
+const morgan = require('morgan')
+
 // Controllers
 const businessController = require('./Controller/ businessController');
 
@@ -13,6 +16,8 @@ const businessController = require('./Controller/ businessController');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: false}));
+app.use(methodOverride('_method'))
+app.use(morgan('dev'))
 mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on("connected", () => {

@@ -35,5 +35,22 @@ router.get('/:businessId',async (req, res) => {
   res.render('businesses/show.ejs', {foundBusiness: foundBusiness})
 })
 
+router.delete('/:businessId', async (req, res) =>{
+    await Business.findByIdAndDelete(req.params.businessId)
+    res.redirect('/businesses')
+    res.send('This is the delete router')
+})
+
+
+
+
+// Get /businesses/:businessId/edit
+router.get('/:businessId/edit', async (req, res) => { 
+  const foundBusiness = await Business.findById(req.params.businessId)
+    res.render('businesses/edit.ejs', {foundBusiness: foundBusiness})
+})
+
+// ontroller function should render 'businesses/edite.ejs' <---- ejs file should have edit form
+
 module.exports = router;
 
